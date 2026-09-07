@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Comedy Republic · Flicket embed test</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Oswald:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green: #4F744A;
+      --cream: #F5F0D3;
+      --sage: #8E9680;
+      --ink: #2E2D2A;
+      --gold: #FFBC29;
+      --blue: #1C79AE;
+      --grey: #B1B2B0;
+      --paper: #faf8f1;
+      --wp: #1d2327;
+      --wp-panel: #f0f0f1;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: Lato, system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.45;
+    }
+    a { color: var(--green); }
+    .bar {
+      background: var(--green);
+      color: var(--cream);
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .bar strong { font-family: Oswald, sans-serif; letter-spacing: .04em; font-size: 18px; }
+    .bar span { font-size: 13px; opacity: .9; }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 28px 18px 80px; }
+    .note {
+      background: #fff;
+      border: 1px solid #e4dfcc;
+      border-left: 5px solid var(--gold);
+      padding: 16px 18px;
+      margin-bottom: 28px;
+    }
+    .note h1 { margin: 0 0 8px; font-family: Oswald, sans-serif; font-size: 26px; letter-spacing: .02em; }
+    .note p { margin: 0 0 8px; }
+    .note p:last-child { margin: 0; color: #555; font-size: 14px; }
+    .show {
+      background: #fff;
+      border: 1px solid #e4dfcc;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+    .hero {
+      background: var(--green);
+      color: var(--cream);
+      padding: 28px 22px 22px;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      margin-bottom: 10px;
+    }
+    .hero h2 { margin: 0 0 8px; font-family: Oswald, sans-serif; font-size: 34px; line-height: 1.1; }
+    .meta { font-size: 15px; opacity: .95; }
+    .tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid #e4dfcc;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+    .tabs button {
+      flex: 1;
+      border: 0;
+      background: transparent;
+      padding: 14px 8px;
+      font: 700 13px Lato, sans-serif;
+      color: #666;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+    }
+    .tabs button.on { color: var(--green); border-bottom-color: var(--green); }
+    .panel { display: none; padding: 20px; background: #fff; }
+    .panel.on { display: block; }
+    .cta {
+      display: inline-block;
+      background: var(--green);
+      color: #fff !important;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 14px 22px;
+      font-size: 16px;
+    }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 8px; }
+    .muted { color: #666; font-size: 14px; }
+    iframe.embed {
+      width: 100%;
+      height: 1030px;
+      border: 1px solid #ddd;
+      background: #f6f6f6;
+    }
+    @media (max-width: 640px) {
+      iframe.embed { height: 1100px; }
+    }
+    h3.sec { font-family: Oswald, sans-serif; font-size: 22px; margin: 36px 0 8px; }
+    .wp {
+      background: var(--wp-panel);
+      border: 1px solid #c3c4c7;
+      box-shadow: 0 1px 1px rgba(0,0,0,.04);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .wp-top {
+      background: var(--wp);
+      color: #fff;
+      padding: 10px 14px;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .wp-body { padding: 16px; }
+    .acf {
+      background: #fff;
+      border: 1px solid #c3c4c7;
+    }
+    .acf h4 {
+      margin: 0;
+      padding: 10px 14px;
+      background: #f6f7f7;
+      border-bottom: 1px solid #dcdcde;
+      font-size: 13px;
+    }
+    .field { padding: 14px 14px 4px; border-bottom: 1px solid #eee; }
+    .field:last-child { border-bottom: 0; padding-bottom: 14px; }
+    .field label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; }
+    .field .help { color: #646970; font-size: 12px; margin: 6px 0 10px; }
+    .field input[type=text], .field input[type=url], .field input[type=number], .field select {
+      width: 100%;
+      max-width: 640px;
+      padding: 6px 8px;
+      border: 1px solid #8c8f94;
+      font-size: 13px;
+    }
+    .switch {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+    .pill {
+      width: 36px; height: 20px; border-radius: 99px;
+      background: var(--green); position: relative;
+    }
+    .pill i {
+      position: absolute; right: 2px; top: 2px;
+      width: 16px; height: 16px; background: #fff; border-radius: 50%;
+    }
+    .effort {
+      background: #fff;
+      border: 1px solid #e4dfcc;
+      padding: 16px 18px;
+      margin-top: 16px;
+    }
+    .effort ul { margin: 8px 0 0; padding-left: 18px; }
+    .effort li { margin: 6px 0; }
+    .ask {
+      background: var(--green);
+      color: var(--cream);
+      padding: 18px;
+      margin-top: 28px;
+    }
+    .ask h3 { margin: 0 0 8px; font-family: Oswald, sans-serif; }
+    .ask a { color: var(--gold); }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <strong>COMEDY REPUBLIC</strong>
+    <span>Flicket prototype · not the live site</span>
+  </div>
+
+  <div class="wrap">
+    <div class="note">
+      <h1>Jackie — ticket path test</h1>
+      <p>This is the Bar Show template event already in Flicket. Two ways the new site can hand someone a ticket. Default on every show is the green button (leaves our site). Flagships can also sit the ticket selector on the page.</p>
+      <p>Best viewed on your iPhone in Safari. Try selecting a ticket in the embed and walk it to payment — checkout always finishes on Flicket, not on our page.</p>
+    </div>
+
+    <div class="show">
+      <div class="hero">
+        <div class="badge">On sale</div>
+        <h2>Bar Show (TEMPLATE)</h2>
+        <div class="meta">Tue 6 Oct 2026 · 7:30–9:00pm · Comedy Republic, VIC · From $15</div>
+      </div>
+      <div class="tabs">
+        <button class="on" data-tab="link" type="button">1. Default · link out</button>
+        <button data-tab="embed" type="button">2. Flagship · embed</button>
+        <button data-tab="headed" type="button">3. Headed embed</button>
+      </div>
+
+      <div id="link" class="panel on">
+        <p>What most shows will do. Same effort as today: you paste the Flicket event link, the button sends people there.</p>
+        <div class="row">
+          <a class="cta" href="https://comedyrepublic.flicket.io/events/12590cd0-d059-4619-86ef-d1204b6a876a/reservation" target="_blank" rel="noopener">Get tickets</a>
+          <span class="muted">Opens Flicket in a new tab for this test. Live site will stay in the same tab.</span>
+        </div>
+      </div>
+
+      <div id="embed" class="panel">
+        <p>Flagship only. Flicket header and footer stripped. You still paste the same event link — the site builds this frame. Payment leaves the page.</p>
+        <iframe
+          class="embed"
+          title="Flicket ticket selector"
+          src="https://comedyrepublic.flicket.io/events/12590cd0-d059-4619-86ef-d1204b6a876a/reservation?hideHeader=true&amp;hideFooter=true"
+          allow="payment *; clipboard-write"
+          loading="lazy"></iframe>
+      </div>
+
+      <div id="headed" class="panel">
+        <p>Same embed with Flicket’s banner and title left on. Usually noisier on a show page we already designed. Included so you can compare.</p>
+        <iframe
+          class="embed"
+          title="Flicket full event embed"
+          src="https://comedyrepublic.flicket.io/events/12590cd0-d059-4619-86ef-d1204b6a876a/reservation"
+          allow="payment *; clipboard-write"
+          loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <h3 class="sec">What you type in WordPress</h3>
+    <p class="muted">Mock of the show edit screen. Not the real admin — this is the field set. One URL you already copy from Flicket. Embed is a checkbox, off unless you want the selector on that show.</p>
+
+    <div class="wp">
+      <div class="wp-top">
+        <span>Edit Show · Bar Show (TEMPLATE)</span>
+        <span>ACF · Sale block</span>
+      </div>
+      <div class="wp-body">
+        <div class="acf">
+          <h4>Ticketing</h4>
+          <div class="field">
+            <label>Flicket event URL <span style="color:#d63638">*</span></label>
+            <input type="url" readonly value="https://comedyrepublic.flicket.io/events/12590cd0-d059-4619-86ef-d1204b6a876a/reservation" />
+            <p class="help">Same link you copy for the Get tickets button. Required on every show.</p>
+          </div>
+          <div class="field">
+            <label>Flicket event ID</label>
+            <input type="text" readonly value="12590cd0-d059-4619-86ef-d1204b6a876a" />
+            <p class="help">Optional. If you only paste the URL, we pull the ID from it.</p>
+          </div>
+          <div class="field">
+            <label>Show ticket selector on this page</label>
+            <div class="switch">
+              <div class="pill"><i></i></div>
+              On · flagship only
+            </div>
+            <p class="help">Off = green button only. On = the embed in tab 2. Default is off.</p>
+          </div>
+          <div class="field">
+            <label>Embed style</label>
+            <select>
+              <option selected>Headerless (recommended)</option>
+              <option>With Flicket header</option>
+            </select>
+            <p class="help">Headerless hides Flicket’s banner. Only used if the checkbox above is on.</p>
+          </div>
+          <div class="field">
+            <label>Embed height (px)</label>
+            <input type="number" readonly value="1026" />
+            <p class="help">Leave it. Only change if a stacked ticket list gets cut off.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="effort">
+      <strong>Effort vs today</strong>
+      <ul>
+        <li>Every show: paste the Flicket event link. That is the Get tickets button. Same work as now.</li>
+        <li>Flagship (rarely): tick one box. You do not paste iframe code, hideHeader, or height.</li>
+        <li>Sold out / selling fast stays a dropdown you already expected to set by hand.</li>
+      </ul>
+    </div>
+
+    <div class="ask">
+      <h3>What we need back</h3>
+      <p>On your iPhone in Safari: does tab 2 feel good enough to use on a couple of big shows, or do we keep the green button everywhere?</p>
+      <p>If the frame feels tight, Apple Pay is weird, or the 5-minute basket dies — say so. That decides embed vs link-out. No extra build until you pick.</p>
+    </div>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll('.tabs button');
+    const panels = document.querySelectorAll('.panel');
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabs.forEach(b => b.classList.remove('on'));
+        panels.forEach(p => p.classList.remove('on'));
+        btn.classList.add('on');
+        document.getElementById(btn.dataset.tab).classList.add('on');
+        window.scrollTo({ top: document.querySelector('.show').offsetTop - 8, behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
